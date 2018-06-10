@@ -399,6 +399,9 @@ public class Presentation extends JPanel {
         repaint();
     }
     
+    /**
+     * Set current slide to next slide
+     */
     public void next(){
         
         if( (isXSLF && xslfSlides.size()-1 > currentIndex) || 
@@ -411,6 +414,9 @@ public class Presentation extends JPanel {
         }
     }
     
+    /**
+     * Set current slide to previous slide
+     */
     public void previous(){
         if(currentIndex > 0)
         {
