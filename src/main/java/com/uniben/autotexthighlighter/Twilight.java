@@ -98,7 +98,7 @@ public class Twilight extends Application {
         
         swingNode = new SwingNode();
         ImageView imageView = new ImageView();
-        Image welcomeImage = new Image(getClass().getResource("/images/unibenlogo2.png").toExternalForm());
+        Image welcomeImage = new Image(getClass().getResource("/images/unibenlogo.png").toExternalForm());
         imageView.setImage(welcomeImage);
         AnchorPane anchor = new AnchorPane();
         anchor.setPadding(new Insets(10,10,10,10));
