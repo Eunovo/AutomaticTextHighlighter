@@ -20,17 +20,16 @@ public class SpeechRecognizer {
     
     Thread speechThread;
     
-    private String result;
+    private volatile String result;
     
     //resources
     private final String acousticModelPath = getClass().getResource("/en-us-adapt").toExternalForm();
     private final String dictionaryPath = getClass().getResource("/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict").toExternalForm();
     private final String languageModelPath = getClass().getResource("/edu/cmu/sphinx/models/en-us/en-us.lm.bin").toExternalForm();
     
-    private boolean alive = false;
+    private volatile boolean alive = false;
     
     private final LiveSpeechRecognizer recognizer;
-    //private final Microphone micro;
     
     public SpeechRecognizer() throws IOException, IllegalStateException{
         Configuration config = new Configuration();
@@ -39,14 +38,6 @@ public class SpeechRecognizer {
         config.setAcousticModelPath(acousticModelPath);
         config.setDictionaryPath(dictionaryPath);
         config.setLanguageModelPath(languageModelPath);
-        //config.setSampleRate(44100);
-        
-        //micro = new Microphone(44100, 16, true, false);
-
-        //micro.startRecording();
-
-        //recognizer = new StreamSpeechRecognizer(
-            //config);
         
         recognizer = new LiveSpeechRecognizer(config);
         
@@ -87,7 +78,7 @@ public class SpeechRecognizer {
                             obj.log("You said [\""+result+"\"]");
                             obj.act(result);
                         }
-                        else System.out.println("I didn't get you");
+                        else obj.log("I didn't get you");
                     }
                 }
             }
@@ -95,7 +86,6 @@ public class SpeechRecognizer {
         });
         //start
         speechThread.start();
-        System.out.println("You can speak now");
         obj.log("You can speak now");
         return true;
     }

@@ -229,8 +229,8 @@ public class Presentation extends JPanel {
         textHeight  = fm.getAscent() + fm.getDescent();
         wordSpace = fm.stringWidth(" ");
         
-        int x = this.getX() + (int)(X_MARGIN * this.getWidth()) ;//+ (int)textShape.getAnchor().getX();
-        int y = this.getY() + (int)(Y_MARGIN * this.getHeight()) ;//+ (int)textShape.getAnchor().getY();
+        int x = this.getX() + (int)(X_MARGIN * this.getWidth()) ;
+        int y = this.getY() + (int)(Y_MARGIN * this.getHeight()) ;
         
         ArrayList<String> lines;
         if(isXSLF){
@@ -248,7 +248,6 @@ public class Presentation extends JPanel {
             String[] words = line.split(" ");
             int wordX = x; //current word's x position
             for(String word: words){
-                //Color fillColor = new Color(OSC.getRGB(wordX, y - textHeight ));
                 Color fillColor = Color.WHITE;
                 Object record = highlightedWords.get(word.toLowerCase());
                 int nTimes = 0;
@@ -258,6 +257,7 @@ public class Presentation extends JPanel {
                 int count = count(word);
                 if( nTimes < count && wordsToHighlight.contains(word.toLowerCase()) )
                 {
+                    System.out.println(word);
                     fillColor = Color.yellow;//highlightColor;
                     if(nTimes > 0){ 
                         //if word has been highlighted before

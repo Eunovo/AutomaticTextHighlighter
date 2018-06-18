@@ -263,6 +263,18 @@ public class Twilight extends Application {
         logStage.setTitle("LOGS");
         logStage.setMinHeight(LOG_STAGE_HEIGHT);
         logStage.setMinWidth(LOG_STAGE_WIDTH);
+        logStage.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                LOG_TEXT_VIEW.setMinHeight((double) newValue);
+            }
+        });
+        logStage.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                LOG_TEXT_VIEW.setMinWidth((double) newValue);
+            }
+        });
         Button showLogButton = new Button("LOG");
         showLogButton.setTextFill(buttonTextColor);
         showLogButton.setOnAction((ActionEvent event) -> {
@@ -299,7 +311,7 @@ public class Twilight extends Application {
             }
         });
         
-        primaryStage.setTitle("Twilight");
+        primaryStage.setTitle("AutomaticTextHighlighter");
         primaryStage.setScene(scene);
         primaryStage.setMinHeight(height);
         primaryStage.setMinWidth(width);
@@ -309,8 +321,7 @@ public class Twilight extends Application {
         double savedWidth = Double.parseDouble(Settings.get("StageWidth", ""+width+""));
         double savedHeight = Double.parseDouble(Settings.get("StageHeight", ""+height+""));
         
-        //primaryStage.setWidth(savedWidth);
-        //primaryStage.setHeight(savedHeight);
+        
         primaryStage.fullScreenProperty().addListener(new ChangeListener(){
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
@@ -387,7 +398,6 @@ public class Twilight extends Application {
                 try{
                     word = (String)queueOfWords.take(); //this will block untill a word is avilable in the queue
                     ppt.highlight(word);
-                    System.out.println("Highlight "+word);
                 }catch(NoSuchElementException e){
                     //do nothing
                 } catch (InterruptedException ex) {
